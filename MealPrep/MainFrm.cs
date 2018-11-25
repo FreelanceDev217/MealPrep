@@ -386,64 +386,6 @@ namespace MealPrep
             }
         }
 
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-            if (m_dt.Rows.Count <= 0)
-                return;
-            try
-            {
-                SaveFileDialog savedlg = new SaveFileDialog();
-                savedlg.FileName = "MealPlan.xls";
-                savedlg.Filter = "Excel files (*.xls)|*.xls|All files (*.*)|*.*";
-                if (savedlg.ShowDialog() == DialogResult.OK)
-                {
-                    if (System.IO.File.Exists(savedlg.FileName) == false)
-                    {
-                        m_xls.NewFile();
-                        m_xls.SaveAs(savedlg.FileName);
-                    }
-                    m_xls.OpenFile(savedlg.FileName);
-                }
-
-                // save field names to m_xls
-                object[,] _records = new object[1, m_dt.Columns.Count];
-                for (int j = 0; j < m_dt.Columns.Count; j++)
-                    _records[0, j] = m_dt.Columns[j].ColumnName;
-
-                Microsoft.Office.Interop.Excel.Worksheet gXlWs = (Microsoft.Office.Interop.Excel.Worksheet)m_xls.excelApp.ActiveWorkbook.ActiveSheet;
-                Microsoft.Office.Interop.Excel.Range range = gXlWs.get_Range("A1", xlsf.IndexToColumn(m_dt.Columns.Count) + "1");
-                range.Value2 = _records;
-
-                // load data from table and save it to m_xls
-                object[,] records = new object[m_dt.Rows.Count, m_dt.Columns.Count];
-                for (int i = 0; i < m_dt.Rows.Count; i++)
-                {
-                    for (int j = 0; j < m_dt.Columns.Count; j++)
-                        records[i, j] = m_dt.Rows[i][j].ToString();
-                }
-
-                gXlWs = (Microsoft.Office.Interop.Excel.Worksheet)m_xls.excelApp.ActiveWorkbook.ActiveSheet;
-                string last = String.Format("{0}{1}", xlsf.IndexToColumn(m_dt.Columns.Count), m_dt.Rows.Count + 1);
-                range = gXlWs.get_Range("A2", last);
-                range.Value2 = records;
-
-                m_xls.Save();
-                m_xls.CloseFile();
-                MessageBox.Show("Saved successfully.");
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
-            finally
-            {
-                if (m_xls.excelApp.ActiveWorkbook != null)
-                {
-                    m_xls.CloseFile();
-                }
-            }
-        }
-
         private void MainFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (m_xls.excelApp.ActiveWorkbook != null)

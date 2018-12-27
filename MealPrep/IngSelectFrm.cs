@@ -13,16 +13,6 @@ namespace MealPrep
     public partial class IngSelectFrm : Form
     {
         public string content = "";
-        public IngSelectFrm(Dictionary<string, string> ingredients)
-        {
-            InitializeComponent();
-            this.ActiveControl = com_ing;
-            foreach (KeyValuePair<string, string> entry in ingredients)
-                com_ing.Items.Add(entry.Key);
-            com_ing.SelectedIndex = 0;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-        }
 
         ~IngSelectFrm() {  }
         private void btn_cancel_Click(object sender, EventArgs e)

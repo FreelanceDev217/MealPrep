@@ -70,4 +70,33 @@ namespace MealPrep
             Close();
         }
 
+        private void btn_ok_Click(object sender, EventArgs e)
+        {
+            if(name == "")
+            {
+                MessageBox.Show("Name is not valid.");
+                txt_name.BackColor = error_col;
+                return;
+            }
+            else
+                txt_name.BackColor = normal_col;
+        }
+
+       
+        private void txt_carb_TextChanged(object sender, EventArgs e)
+        {
+            carb = txt_carb.Text;
+        }
+
+        private void com_category_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            category = com_category.SelectedItem.ToString();
+        }
+
+        private void IngredientFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (txt_name.BackColor == error_col)
+                e.Cancel = true;
+        }
+    }
 }

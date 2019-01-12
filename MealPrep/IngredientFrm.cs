@@ -82,7 +82,36 @@ namespace MealPrep
                 txt_name.BackColor = normal_col;
         }
 
-       
+        private void txt_name_TextChanged(object sender, EventArgs e)
+        {
+            name = txt_name.Text;
+        }
+
+        private void PasswordForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_price_TextChanged(object sender, EventArgs e)
+        {
+            price = txt_price.Text;
+        }
+
+        private void txt_cal_TextChanged(object sender, EventArgs e)
+        {
+            cal = txt_cal.Text;
+        }
+
+        private void txt_fat_TextChanged(object sender, EventArgs e)
+        {
+            fat = txt_fat.Text;
+        }
+
+        private void txt_protein_TextChanged(object sender, EventArgs e)
+        {
+            protein = txt_protein.Text;
+        }
+
         private void txt_carb_TextChanged(object sender, EventArgs e)
         {
             carb = txt_carb.Text;
